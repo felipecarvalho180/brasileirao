@@ -7,6 +7,7 @@ class Team {
   String image;
   int points;
   Color color;
+  int idAPI;
   List<Championship> championships = [];
 
   Team({
@@ -14,5 +15,6 @@ class Team {
     required this.image,
     required this.points,
     required this.color,
+    required this.idAPI,
   });
 }

@@ -1,3 +1,4 @@
+import 'package:brasileirao/widgets/logo.dart';
 import 'package:flutter/material.dart';
 
 import 'package:brasileirao/models/team.dart';
@@ -18,7 +19,10 @@ class StatisticsPage extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.all(24),
-          child: Image.network(team.image.replaceAll('40x40', '100x100')),
+          child: Logo(
+            image: team.image,
+            width: 250,
+          ),
         ),
         Text(
           'Pontos: ${team.points}',

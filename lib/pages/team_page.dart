@@ -3,6 +3,7 @@ import 'package:brasileirao/pages/add_title_page.dart';
 import 'package:brasileirao/pages/statistics_page.dart';
 import 'package:brasileirao/pages/titles.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../models/team.dart';
 
@@ -20,29 +21,7 @@ class TeamPage extends StatefulWidget {
 
 class _TeamPageState extends State<TeamPage> {
   void handleAddTitle() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (_) => AddTitlePage(
-          team: widget.team,
-          onSubmit: handleSaveTitle,
-        ),
-      ),
-    );
-  }
-
-  void handleSaveTitle(Championship title) {
-    setState(() {
-      widget.team.championships.add(title);
-    });
-
-    Navigator.pop(context);
-
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Salvo com sucesso!'),
-      ),
-    );
+    Get.to(() => AddTitlePage(team: widget.team));
   }
 
   @override

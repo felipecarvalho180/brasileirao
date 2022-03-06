@@ -1,5 +1,9 @@
 import 'package:brasileirao/pages/team_page.dart';
+import 'package:brasileirao/repositories/teams.dart';
+import 'package:brasileirao/widgets/logo.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:provider/provider.dart';
 
 import '../controllers/home.dart';
 import '../models/team.dart';
@@ -24,32 +28,38 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Brasileirão')),
-      body: ListView.separated(
-        itemBuilder: (BuildContext context, int i) {
-          final List<Team> classification = controller.classification;
+      body: Consumer<TeamsRepository>(builder: (context, value, child) {
+        return ListView.separated(
+          itemBuilder: (BuildContext context, int i) {
+            final List<Team> classification = value.teams;
 
-          return ListTile(
-            leading: Image.network(classification[i].image),
-            title: Text(classification[i].name),
-            trailing: Text(
-              classification[i].points.toString(),
-            ),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => TeamPage(
-                      key: Key(classification[i].name),
-                      team: classification[i]),
-                ),
-              );
-            },
-          );
-        },
-        separatorBuilder: (_, __) => Divider(),
-        itemCount: controller.classification.length,
-        padding: const EdgeInsets.all(16),
-      ),
+            return ListTile(
+              leading: Logo(
+                image: classification[i].image,
+                width: 40,
+              ),
+              title: Text(classification[i].name),
+              subtitle: Text(
+                'Titulos: ${classification[i].championships.length}',
+              ),
+              trailing: Text(
+                classification[i].points.toString(),
+              ),
+              onTap: () {
+                Get.to(
+                  () => TeamPage(
+                    key: Key(classification[i].name),
+                    team: classification[i],
+                  ),
+                );
+              },
+            );
+          },
+          separatorBuilder: (_, __) => const Divider(),
+          itemCount: value.teams.length,
+          padding: const EdgeInsets.all(16),
+        );
+      }),
     );
   }
 }

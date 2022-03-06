@@ -1,54 +1,58 @@
-import 'package:brasileirao/models/championship.dart';
 import 'package:brasileirao/repositories/teams.dart';
 import 'package:flutter/material.dart';
 
-import 'package:brasileirao/models/team.dart';
+import 'package:brasileirao/models/championship.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
-class AddTitlePage extends StatefulWidget {
-  final Team team;
-  // final ValueChanged<Championship> onSubmit;
+class EditTitlePage extends StatefulWidget {
+  final Championship championship;
 
-  const AddTitlePage({
+  const EditTitlePage({
     Key? key,
-    required this.team,
-    // required this.onSubmit,
+    required this.championship,
   }) : super(key: key);
 
   @override
-  State<AddTitlePage> createState() => _AddTitlePageState();
+  State<EditTitlePage> createState() => _EditTitlePageState();
 }
 
-class _AddTitlePageState extends State<AddTitlePage> {
+class _EditTitlePageState extends State<EditTitlePage> {
   final _championship = TextEditingController();
   final _year = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
-  void handleSubmit() {
-    Provider.of<TeamsRepository>(context, listen: false).addChampionship(
-      team: widget.team,
-      championship: Championship(
-        competition: _championship.text,
-        year: _year.text,
-      ),
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _year.text = widget.championship.year;
+    _championship.text = widget.championship.competition;
+  }
+
+  void handleEditChampionship() {
+    Provider.of<TeamsRepository>(context, listen: false).editChampionship(
+      championship: widget.championship,
+      newChampionshipName: _championship.text,
+      newChampionshipYear: _year.text,
     );
 
     Get.back();
-    Get.snackbar(
-      'Sucesso',
-      'Título adicionado!',
-      backgroundColor: Colors.grey[900],
-      colorText: Colors.white,
-      snackPosition: SnackPosition.BOTTOM,
-    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Adicionar título'),
+        title: const Text('Editar título'),
+        actions: [
+          IconButton(
+            onPressed: handleEditChampionship,
+            icon: const Icon(
+              Icons.check,
+            ),
+          )
+        ],
       ),
       body: Form(
         key: _formKey,
@@ -99,29 +103,6 @@ class _AddTitlePageState extends State<AddTitlePage> {
                 },
               ),
             ),
-            Expanded(
-              child: Container(
-                alignment: Alignment.bottomCenter,
-                margin: const EdgeInsets.all(24),
-                child: ElevatedButton(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Icon(Icons.check),
-                      Padding(
-                        padding: EdgeInsets.all(16),
-                        child: Text('Salvar'),
-                      ),
-                    ],
-                  ),
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      handleSubmit();
-                    }
-                  },
-                ),
-              ),
-            )
           ],
         ),
       ),

@@ -1,141 +1,188 @@
 import 'package:flutter/material.dart';
+import 'dart:collection';
 
 import '../models/championship.dart';
 import '../models/team.dart';
 
-class TeamsRepository {
+class TeamsRepository extends ChangeNotifier {
   final List<Team> _teams = [];
 
-  get teams => _teams;
+  UnmodifiableListView<Team> get teams => UnmodifiableListView(_teams);
 
-  void addChampionship(
-      {required Team team, required Championship championship}) {
+  void addChampionship({
+    required Team team,
+    required Championship championship,
+  }) {
     team.championships.add(championship);
+    notifyListeners();
+  }
+
+  void editChampionship({
+    required Championship championship,
+    required String newChampionshipName,
+    required String newChampionshipYear,
+  }) {
+    championship.competition = newChampionshipName;
+    championship.year = newChampionshipYear;
+    notifyListeners();
   }
 
   TeamsRepository() {
-    _teams.addAll([
-      Team(
-        name: 'Flamengo',
-        points: 71,
-        image: 'https://e.imguol.com/futebol/brasoes/40x40/flamengo.png',
-        color: (Colors.red[900])!,
-      ),
-      Team(
-        name: 'Internacional',
-        points: 69,
-        image: 'https://e.imguol.com/futebol/brasoes/40x40/internacional.png',
-        color: (Colors.red[900])!,
-      ),
-      Team(
-        name: 'Atlético-MG',
-        points: 65,
-        image: 'https://e.imguol.com/futebol/brasoes/40x40/atletico-mg.png',
-        color: (Colors.grey[800])!,
-      ),
-      Team(
-        name: 'São Paulo',
-        points: 63,
-        image: 'https://e.imguol.com/futebol/brasoes/40x40/sao-paulo.png',
-        color: (Colors.red[900])!,
-      ),
-      Team(
-        name: 'Fluminense',
-        points: 61,
-        image: 'https://e.imguol.com/futebol/brasoes/40x40/fluminense.png',
-        color: (Colors.teal[800])!,
-      ),
-      Team(
-        name: 'Grêmio',
-        points: 59,
-        image: 'https://e.imguol.com/futebol/brasoes/40x40/gremio.png',
-        color: (Colors.blue[900])!,
-      ),
-      Team(
-        name: 'Palmeiras',
-        points: 58,
-        image: 'https://e.imguol.com/futebol/brasoes/40x40/palmeiras.png',
-        color: (Colors.green[800])!,
-      ),
-      Team(
-        name: 'Santos',
-        points: 54,
-        image: 'https://e.imguol.com/futebol/brasoes/40x40/santos.png',
-        color: (Colors.grey[800])!,
-      ),
-      Team(
-        name: 'Athletico-PR',
-        points: 50,
-        image: 'https://e.imguol.com/futebol/brasoes/40x40/atletico-pr.png',
-        color: (Colors.red[900])!,
-      ),
-      Team(
-        name: 'Corinthians',
-        points: 50,
-        image: 'https://e.imguol.com/futebol/brasoes/40x40/corinthians.png',
-        color: (Colors.grey[800])!,
-      ),
-      Team(
-        name: 'Bragantino',
-        points: 50,
-        image:
-            'https://e.imguol.com/futebol/brasoes/40x40/red-bull-bragantino.png',
-        color: (Colors.grey[800])!,
-      ),
-      Team(
-        name: 'Ceará',
-        points: 49,
-        image: 'https://e.imguol.com/futebol/brasoes/40x40/ceara.png',
-        color: (Colors.grey[800])!,
-      ),
-      Team(
-        name: 'Atlético-GO',
-        points: 47,
-        image: 'https://e.imguol.com/futebol/brasoes/40x40/atletico-go.png',
-        color: (Colors.red[900])!,
-      ),
-      Team(
-        name: 'Sport',
-        points: 42,
-        image: 'https://e.imguol.com/futebol/brasoes/40x40/sport.png',
-        color: (Colors.red[900])!,
-      ),
-      Team(
-        name: 'Bahia',
-        points: 41,
-        image: 'https://e.imguol.com/futebol/brasoes/40x40/bahia.png',
-        color: (Colors.blue[900])!,
-      ),
-      Team(
-        name: 'Fortaleza',
-        points: 41,
-        image: 'https://e.imguol.com/futebol/brasoes/40x40/fortaleza.png',
-        color: (Colors.red[900])!,
-      ),
-      Team(
-        name: 'Vasco',
-        points: 38,
-        image: 'https://e.imguol.com/futebol/brasoes/40x40/vasco.png',
-        color: (Colors.grey[800])!,
-      ),
-      Team(
-        name: 'Goiás',
-        points: 37,
-        image: 'https://e.imguol.com/futebol/brasoes/40x40/goias.png',
-        color: (Colors.green[900])!,
-      ),
-      Team(
-        name: 'Coritiba',
-        points: 31,
-        image: 'https://e.imguol.com/futebol/brasoes/40x40/coritiba.png',
-        color: (Colors.green[900])!,
-      ),
-      Team(
-        name: 'Botafogo',
-        points: 27,
-        image: 'https://e.imguol.com/futebol/brasoes/40x40/botafogo.png',
-        color: (Colors.grey[800])!,
-      ),
-    ]);
+    _teams.addAll(
+      [
+        Team(
+          name: 'Flamengo',
+          points: 0,
+          image: 'https://logodetimes.com/times/flamengo/logo-flamengo-256.png',
+          color: (Colors.red[900])!,
+          idAPI: 18,
+        ),
+        Team(
+          name: 'Internacional',
+          points: 0,
+          image:
+              'https://logodetimes.com/times/internacional/logo-internacional-256.png',
+          color: (Colors.red[900])!,
+          idAPI: 44,
+        ),
+        Team(
+          name: 'Atlético-MG',
+          points: 0,
+          image:
+              'https://logodetimes.com/times/atletico-mineiro/logo-atletico-mineiro-256.png',
+          color: (Colors.grey[800])!,
+          idAPI: 30,
+        ),
+        Team(
+          name: 'São Paulo',
+          points: 0,
+          image:
+              'https://logodetimes.com/times/sao-paulo/logo-sao-paulo-256.png',
+          color: (Colors.red[900])!,
+          idAPI: 57,
+        ),
+        Team(
+          name: 'Fluminense',
+          points: 0,
+          image:
+              'https://logodetimes.com/times/fluminense/logo-fluminense-256.png',
+          color: (Colors.teal[800])!,
+          idAPI: 26,
+        ),
+        Team(
+          name: 'Grêmio',
+          points: 0,
+          image: 'https://logodetimes.com/times/gremio/logo-gremio-256.png',
+          color: (Colors.blue[900])!,
+          idAPI: 45,
+        ),
+        Team(
+          name: 'Palmeiras',
+          points: 0,
+          image:
+              'https://logodetimes.com/times/palmeiras/logo-palmeiras-256.png',
+          color: (Colors.green[800])!,
+          idAPI: 56,
+        ),
+        Team(
+          name: 'Santos',
+          points: 0,
+          image: 'https://logodetimes.com/times/santos/logo-santos-256.png',
+          color: (Colors.grey[800])!,
+          idAPI: 63,
+        ),
+        Team(
+          name: 'Athletico-PR',
+          points: 0,
+          image:
+              'https://logodetimes.com/times/atletico-paranaense/logo-atletico-paranaense-256.png',
+          color: (Colors.red[900])!,
+          idAPI: 185,
+        ),
+        Team(
+          name: 'Corinthians',
+          points: 0,
+          image:
+              'https://logodetimes.com/times/corinthians/logo-corinthians-256.png',
+          color: (Colors.grey[800])!,
+          idAPI: 65,
+        ),
+        Team(
+          name: 'Bragantino',
+          points: 0,
+          image:
+              'https://logodetimes.com/times/red-bull-bragantino/logo-red-bull-bragantino-256.png',
+          color: (Colors.grey[800])!,
+          idAPI: 64,
+        ),
+        Team(
+          name: 'Ceará',
+          points: 0,
+          image: 'https://logodetimes.com/times/ceara/logo-ceara-256.png',
+          color: (Colors.grey[800])!,
+          idAPI: 105,
+        ),
+        Team(
+          name: 'Atlético-GO',
+          points: 0,
+          image:
+              'https://logodetimes.com/times/atletico-goianiense/logo-atletico-goianiense-256.png',
+          color: (Colors.red[900])!,
+          idAPI: 98,
+        ),
+        Team(
+          name: 'Sport',
+          points: 0,
+          image:
+              'https://logodetimes.com/times/sport-recife/logo-sport-recife-256.png',
+          color: (Colors.red[900])!,
+          idAPI: 79,
+        ),
+        Team(
+          name: 'Bahia',
+          points: 0,
+          image: 'https://logodetimes.com/times/bahia/logo-bahia-256.png',
+          color: (Colors.blue[900])!,
+          idAPI: 68,
+        ),
+        Team(
+          name: 'Fortaleza',
+          points: 0,
+          image:
+              'https://logodetimes.com/times/fortaleza/logo-fortaleza-256.png',
+          color: (Colors.red[900])!,
+          idAPI: 131,
+        ),
+        Team(
+          name: 'Vasco',
+          points: 0,
+          image:
+              'https://logodetimes.com/times/vasco-da-gama/logo-vasco-da-gama-256.png',
+          color: (Colors.grey[800])!,
+          idAPI: 23,
+        ),
+        Team(
+          name: 'Goiás',
+          points: 0,
+          image: 'https://logodetimes.com/times/goias/logo-goias-novo-256.png',
+          color: (Colors.green[900])!,
+          idAPI: 115,
+        ),
+        Team(
+          name: 'Coritiba',
+          points: 0,
+          image: 'https://logodetimes.com/times/coritiba/logo-coritiba-5.png',
+          color: (Colors.green[900])!,
+          idAPI: 84,
+        ),
+        Team(
+          name: 'Botafogo',
+          points: 0,
+          image: 'https://logodetimes.com/times/botafogo/logo-botafogo-256.png',
+          color: (Colors.grey[800])!,
+          idAPI: 22,
+        ),
+      ],
+    );
   }
 }
