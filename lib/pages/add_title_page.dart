@@ -1,8 +1,8 @@
-import 'package:brasileirao/models/championship.dart';
-import 'package:brasileirao/repositories/teams.dart';
+import 'package:brasileirao/models/championship_model.dart';
+import 'package:brasileirao/repositories/teams_repository.dart';
 import 'package:flutter/material.dart';
 
-import 'package:brasileirao/models/team.dart';
+import 'package:brasileirao/models/team_model.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 

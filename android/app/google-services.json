@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "75228591830",
+    "project_id": "brasileirao-77b6f",
+    "storage_bucket": "brasileirao-77b6f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:75228591830:android:9cce1dcdac93800219bb77",
+        "android_client_info": {
+          "package_name": "com.example.brasileirao"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "75228591830-rdnq13u26guman6o51243qms6lm3cteq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAcs3i2QOegqvIXNjWrepkR4CDFccJiq3w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "75228591830-rdnq13u26guman6o51243qms6lm3cteq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

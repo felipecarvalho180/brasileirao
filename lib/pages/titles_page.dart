@@ -1,11 +1,11 @@
 import 'package:brasileirao/pages/edit_title_page.dart';
 import 'package:flutter/material.dart';
 
-import 'package:brasileirao/models/team.dart';
+import 'package:brasileirao/models/team_model.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
-import '../repositories/teams.dart';
+import '../repositories/teams_repository.dart';
 
 class TitlesPage extends StatelessWidget {
   final Team team;

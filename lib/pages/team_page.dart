@@ -1,11 +1,10 @@
-import 'package:brasileirao/models/championship.dart';
 import 'package:brasileirao/pages/add_title_page.dart';
 import 'package:brasileirao/pages/statistics_page.dart';
-import 'package:brasileirao/pages/titles.dart';
+import 'package:brasileirao/pages/titles_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../models/team.dart';
+import '../models/team_model.dart';
 
 class TeamPage extends StatefulWidget {
   final Team team;

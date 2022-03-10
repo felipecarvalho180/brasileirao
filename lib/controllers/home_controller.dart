@@ -1,5 +1,5 @@
-import '../models/team.dart';
-import '../repositories/teams.dart';
+import '../models/team_model.dart';
+import '../repositories/teams_repository.dart';
 
 class HomeController {
   TeamsRepository teamsRepository = TeamsRepository();

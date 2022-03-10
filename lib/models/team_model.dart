@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'championship.dart';
+import 'championship_model.dart';
 
 class Team {
   String name;

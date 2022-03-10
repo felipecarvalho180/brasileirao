@@ -1,7 +1,7 @@
-import 'package:brasileirao/widgets/logo.dart';
+import 'package:brasileirao/widgets/logo_widget.dart';
 import 'package:flutter/material.dart';
 
-import 'package:brasileirao/models/team.dart';
+import 'package:brasileirao/models/team_model.dart';
 
 class StatisticsPage extends StatelessWidget {
   final Team team;
