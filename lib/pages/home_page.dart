@@ -58,36 +58,43 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       body: Consumer<TeamsRepository>(builder: (context, value, child) {
-        return ListView.separated(
-          itemBuilder: (BuildContext context, int i) {
-            final List<Team> classification = value.teams;
+        return value.teams.length > 0 && value.loading.value == false
+            ? RefreshIndicator(
+                child: ListView.separated(
+                  itemBuilder: (BuildContext context, int i) {
+                    final List<Team> classification = value.teams;
 
-            return ListTile(
-              leading: Logo(
-                image: classification[i].image,
-                width: 40,
-              ),
-              title: Text(classification[i].name),
-              subtitle: Text(
-                'Titulos: ${classification[i].championships.length}',
-              ),
-              trailing: Text(
-                classification[i].points.toString(),
-              ),
-              onTap: () {
-                Get.to(
-                  () => TeamPage(
-                    key: Key(classification[i].name),
-                    team: classification[i],
-                  ),
-                );
-              },
-            );
-          },
-          separatorBuilder: (_, __) => const Divider(),
-          itemCount: value.teams.length,
-          padding: const EdgeInsets.all(16),
-        );
+                    return ListTile(
+                      leading: Logo(
+                        image: classification[i].image,
+                        width: 40,
+                      ),
+                      title: Text(classification[i].name),
+                      subtitle: Text(
+                        'Titulos: ${classification[i].championships!.length}',
+                      ),
+                      trailing: Text(
+                        classification[i].points.toString(),
+                      ),
+                      onTap: () {
+                        Get.to(
+                          () => TeamPage(
+                            key: Key(classification[i].name),
+                            team: classification[i],
+                          ),
+                        );
+                      },
+                    );
+                  },
+                  separatorBuilder: (_, __) => const Divider(),
+                  itemCount: value.teams.length,
+                  padding: const EdgeInsets.all(16),
+                ),
+                onRefresh: () => value.updateTable(),
+              )
+            : const Center(
+                child: CircularProgressIndicator(),
+              );
       }),
     );
   }

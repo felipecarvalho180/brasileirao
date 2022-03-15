@@ -21,7 +21,7 @@ class TitlesPage extends StatelessWidget {
         .teams
         .firstWhere((t) => t.name == team.name);
 
-    final quantity = teamFound.championships.length;
+    final quantity = teamFound.championships!.length;
 
     return quantity == 0
         ? const Center(child: Text('Nenhum título ainda!'))
@@ -29,12 +29,12 @@ class TitlesPage extends StatelessWidget {
             itemBuilder: (BuildContext context, int i) {
               return ListTile(
                 leading: const Icon(Icons.emoji_events),
-                title: Text(teamFound.championships[i].competition),
-                trailing: Text(teamFound.championships[i].year),
+                title: Text(teamFound.championships![i].competition),
+                trailing: Text(teamFound.championships![i].year),
                 onTap: () {
                   Get.to(
                     EditTitlePage(
-                      championship: teamFound.championships[i],
+                      championship: teamFound.championships![i],
                     ),
                     fullscreenDialog: true,
                   );
@@ -42,7 +42,7 @@ class TitlesPage extends StatelessWidget {
               );
             },
             separatorBuilder: (_, __) => const Divider(),
-            itemCount: team.championships.length,
+            itemCount: team.championships!.length,
           );
   }
 }

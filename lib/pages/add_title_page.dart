@@ -25,10 +25,11 @@ class _AddTitlePageState extends State<AddTitlePage> {
   final _year = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
-  void handleSubmit() {
-    Provider.of<TeamsRepository>(context, listen: false).addChampionship(
+  void handleSubmit() async {
+    await Provider.of<TeamsRepository>(context, listen: false).addChampionship(
       team: widget.team,
       championship: Championship(
+        id: widget.team.idAPI.toString(),
         competition: _championship.text,
         year: _year.text,
       ),

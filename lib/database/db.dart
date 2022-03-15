@@ -17,7 +17,7 @@ class DB {
 
   initDatabase() async {
     return await openDatabase(
-      join(await getDatabasesPath(), "dados.db"),
+      join(await getDatabasesPath(), "dados1.db"),
       version: 1,
       onCreate: (db, version) async {
         await db.execute(teams);
@@ -35,6 +35,7 @@ class DB {
           "name": team.name,
           "image": team.image,
           "points": team.points,
+          "idAPI": team.idAPI,
           "color":
               team.color.toString().replaceAll('Color(', '').replaceAll(')', '')
         },
@@ -43,7 +44,7 @@ class DB {
   }
 
   String get teams =>
-      "CREATE TABLE teams(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, points INTEGER, image TEXT, color TEXT)";
+      "CREATE TABLE teams(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, points INTEGER, image TEXT, color TEXT, idAPI INTEGER)";
 
   String get championships =>
       "CREATE TABLE championships(id INTEGER PRIMARY KEY AUTOINCREMENT, competition TEXT, year TEXT, team_id INTEGER, FOREIGN KEY (team_id) REFERENCES teams(id) ON DELETE CASCADE )";
